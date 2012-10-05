@@ -9,10 +9,9 @@ specific (I'm not sure).
 Installation
 ------------
 
-1) Checkout this repository somewhere on your system, and symlink the commands
+1. Checkout this repository somewhere on your system, and symlink the commands
 (tinyham.py, findproj.py) in your ~/bin or something in your  $PATH.
-
-2) Created a tinyconf.py file based on tinyconf.py.example with your username,
+2. Created a tinyconf.py file based on tinyconf.py.example with your username,
 password, and the openerp database to use.
 
 Usage
@@ -37,12 +36,12 @@ tiny-hamster has a limitation in that it cannot create timesheet objects in
 OpenERP (weekly sheets). So you first have to create and save them once in
 OpenERP. So here is the workflow I recommend (and personnaly use) :
 
-1) All week long, use Hamster to track your time without worrying about
+1. All week long, use Hamster to track your time without worrying about
 OpenERP.
-2) On Monday morning, open and log into OpenERP, open the current timesheet
+2. On Monday morning, open and log into OpenERP, open the current timesheet
 (that of the new week) which will create it if necessary, and save it empty.
-3) Use tiny-hamster to import all days of the past week into OpenERP.
-4) In OpenERP, check to total time of the past week and confirm it.
+3. Use tiny-hamster to import all days of the past week into OpenERP.
+4. In OpenERP, check to total time of the past week and confirm it.
 
 That's it. You can also import data into OpenERP more frequently (especially
 recommended near the end of the month to help the administrative team).
