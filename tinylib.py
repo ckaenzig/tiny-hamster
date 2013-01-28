@@ -34,7 +34,7 @@ class TinyServer (TinyXMLRPC):
     return self.execute("account.analytic.account", "name_search", search)
 
   def search_task(self, account_id, search):
-    return self.execute("project.task", "search", [["state", "=", "open"], ["name", "ilike", search]], 0, 100, False, {"lang": "fr_FR", "account_id": account_id})
+    return self.execute("project.task", "name_search", search, [["state", "=", "open"]], "ilike", {"lang": "fr_FR", "name_search": search, "account_id": account_id})
 
   def search_timesheet(self, date):
     return self.execute("hr_timesheet_sheet.sheet", "search", [["user_id", "=", self.user_id], ["state", "=", "draft"], ["date_from", "<=", date]], 0.0, 80.0, 0, {"lang": "fr_FR", "active_ids": [], "active_id": 480})
