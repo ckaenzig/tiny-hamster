@@ -78,6 +78,10 @@ for activity, infos in activities.items():
   if category is None:
     print "Category missing for '%s'. Please fix." %(activity)
     sys.exit(1)
+
+  if duration_hours == 0:
+    print "Activity '%s' has zero duration. Please fix." %(activity)
+    sys.exit(1)
  
   match_acc = tiny.search_account(category)
   if len(match_acc) == 0:
