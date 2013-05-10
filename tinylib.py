@@ -1,20 +1,22 @@
 #!/usr/bin/env python
 
+import os
 from xmlrpclib import ServerProxy, Error
 
 class TinyXMLRPC:
-  def __init__(self, username, password, database):
+  def __init__(self, username, password, database, base_url):
     self.username = username
     self.password = password
     self.database = database
+    self.base_url = base_url
 
     self._connect()
     self._login()
 
   def _connect(self):
-    self._common_server = ServerProxy("http://openerp-prod.camptocamp.com:8101/xmlrpc/common")
-    self._object_server = ServerProxy("http://openerp-prod.camptocamp.com:8101/xmlrpc/object")
-    self._wizard_server = ServerProxy("http://openerp-prod.camptocamp.com:8101/xmlrpc/wizard")
+    self._common_server = ServerProxy(os.path.join(self.base_url, "common"))
+    self._object_server = ServerProxy(os.path.join(self.base_url, "object"))
+    self._wizard_server = ServerProxy(os.path.join(self.base_url, "wizard"))
 
   def _login(self):
     self.user_id = self._common_server.login(self.database, self.username, self.password)

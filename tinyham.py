@@ -58,7 +58,7 @@ if not activities:
 
 ## TinyERP ##
 
-tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_db)
+tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_db, tinyconf.rpc_url)
 
 ts_def = tiny.timesheet_defaults()
 att_def = tiny.attendance_defaults()
