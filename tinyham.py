@@ -12,7 +12,12 @@ except ImportError:
     import sqlite3 as sqlite
 
 import tinylib
-import tinyconf
+try:
+    import tinyconf
+except ImportError:
+    print ("No configuration file found. You have to copy "
+           "'tinyconf.py.example' to 'tinyconf.py' and change the options.")
+    exit(1)
 
 if len(sys.argv) > 1:
   date = sys.argv[1]
