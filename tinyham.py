@@ -90,19 +90,23 @@ for activity, infos in activities.items():
     print "Activity '%s' has zero duration. Please fix." %(activity)
     sys.exit(1)
  
-  match_acc = tiny.search_account(category)
-  if len(match_acc) == 0:
-    print "No account found for '%s' in OpenERP. Please fix." %(category)
+  # Check if project exists and is timesheetable
+  match_proj = tiny.search_project(category, timesheetable_only=True)
+  if len(match_proj) == 0:
+    print "No account project for '%s' in OpenERP. Please fix." %(category)
     sys.exit(1)
-  elif len(match_acc) > 1:
-    names = [ma[1] for ma in match_acc]
+  elif len(match_proj) > 1:
+    names = [ma[1] for ma in match_proj]
     if category in names:
-      acc_id, acc_name = match_acc[names.index(category)]
+      proj_id, proj_name = match_proj[names.index(category)]
     else:
-      print "Multiple accounts found for '%s' in OpenERP. Please fix." %(category)
+      print "Multiple projects found for '%s' in OpenERP. Please fix." %(category)
       sys.exit(1)
   else:
-    acc_id, acc_name = match_acc[0]
+    proj_id, proj_name = match_proj[0]
+
+  # Find analytical account matching project
+  acc_id, acc_name = tiny.search_account(category)[0]
 
   if tag is None:
     task_id = None

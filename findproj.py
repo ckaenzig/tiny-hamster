@@ -14,6 +14,6 @@ except IndexError:
 tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_db, tinyconf.rpc_url)
 
 print
-for proj in tiny.search_project(proj_arg, 'open'):
+for proj in tiny.search_project(proj_arg, timesheetable_only=True):
   print proj[1]
 print 

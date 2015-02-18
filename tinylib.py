@@ -35,8 +35,12 @@ class TinyServer (TinyXMLRPC):
   def search_account(self, search):
     return self.execute("account.analytic.account", "name_search", search)
 
-  def search_project(self, search, state):
-    return self.execute("project.project", "name_search", search, [["state", "=", state]], "ilike", {"lang": "fr_FR", "name_search": search})
+  def search_project(self, search, timesheetable_only):
+    if timesheetable_only:
+      conds = [["state", "=", "open"], ["use_timesheets", "=", "1"]]
+    else:
+      conds = []
+    return self.execute("project.project", "name_search", search, conds, "ilike", {"lang": "fr_FR", "name_search": search})
 
   def search_task(self, account_id, search):
     return self.execute("project.task", "name_search", search, [["state", "=", "open"]], "ilike", {"lang": "fr_FR", "name_search": search, "account_id": account_id})
