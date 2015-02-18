@@ -115,7 +115,7 @@ for activity, infos in activities.items():
       print "Multiple tasks found for '%s' in account '%s' in OpenERP. Please fix." %(tag, category)
       sys.exit(1)
     else:
-      task_id = match_task[0]
+      task_id = match_task[0][0]
 
   #act_id, act_name = tiny.search_activity(acc_id, tiny_activity)[0]
   to_invoice = tiny.on_change_account_id(acc_id)["value"]["to_invoice"]
