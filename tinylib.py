@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import ssl
 from xmlrpclib import ServerProxy, Error
 
 class TinyXMLRPC:
@@ -14,9 +15,17 @@ class TinyXMLRPC:
     self._login()
 
   def _connect(self):
-    self._common_server = ServerProxy(os.path.join(self.base_url, "common"))
-    self._object_server = ServerProxy(os.path.join(self.base_url, "object"))
-    self._wizard_server = ServerProxy(os.path.join(self.base_url, "wizard"))
+
+    # Since python 2.7.9 ssl check ca-cetificates thus we need to give
+    # system's trusted certificates
+    ssl_context = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
+
+    self._common_server = ServerProxy(os.path.join(self.base_url, "common"),
+        context=ssl_context)
+    self._object_server = ServerProxy(os.path.join(self.base_url, "object"),
+        context=ssl_context)
+    self._wizard_server = ServerProxy(os.path.join(self.base_url, "wizard"),
+        context=ssl_context)
 
   def _login(self):
     self.user_id = self._common_server.login(self.database, self.username, self.password)
