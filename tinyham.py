@@ -18,7 +18,6 @@ except ImportError:
     print ("No configuration file found. You have to copy "
            "'tinyconf.py.example' to 'tinyconf.py' and change the options.")
     exit(1)
-
 if len(sys.argv) > 1:
   date = sys.argv[1]
 else:
@@ -51,10 +50,11 @@ for r in cur:
 
   duration = end_time - start_time
 
-  if activity in activities:
-    activities[activity][0] += duration
+  # Group activities by projects
+  if (activity, category) in activities:
+    activities[(activity, category)][0] += duration
   else:
-    activities[activity] = [duration, category, tag]
+    activities[(activity, category)] = [duration, tag]
 
 cur.close()
 
@@ -78,8 +78,9 @@ att_lines = [[0, 0, {"action": "sign_in", "employee_id": att_def["employee_id"],
 
 ts_lines = []
 
-for activity, infos in activities.items():
-  duration, category, tag = infos #, tiny_activity = infos
+for key, infos in activities.items():
+  activity, category = key
+  duration, tag = infos #, tiny_activity = infos
   duration_hours = duration.seconds/3600.0
 
   if category is None:
