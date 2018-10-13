@@ -3,6 +3,7 @@
 import tinylib
 import tinyconf
 import sys
+import common
 
 try:
   proj_arg = sys.argv[1]
@@ -11,6 +12,7 @@ except IndexError:
   print "usage: findproj.py <project> <task>"
   sys.exit(1)
 
+tinyconf = common.build_config()
 
 tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_db, tinyconf.rpc_url)
 
