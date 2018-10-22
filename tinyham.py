@@ -5,19 +5,14 @@ import datetime
 import sys
 import csv
 import os
-
+import common
 try:
     from pysqlite2 import dbapi2 as sqlite
 except ImportError:
     import sqlite3 as sqlite
 
 import tinylib
-try:
-    import tinyconf
-except ImportError:
-    print ("No configuration file found. You have to copy "
-           "'tinyconf.py.example' to 'tinyconf.py' and change the options.")
-    exit(1)
+
 if len(sys.argv) > 1:
   date = sys.argv[1]
 else:
@@ -64,6 +59,8 @@ if not activities:
 
 
 ## TinyERP ##
+
+tinyconf = common.build_config()
 
 tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_db, tinyconf.rpc_url)
 
