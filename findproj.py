@@ -15,5 +15,5 @@ tiny = tinylib.TinyServer(tinyconf.user_name, tinyconf.user_pwd, tinyconf.tiny_d
 
 print
 for proj in tiny.search_project(proj_arg, timesheetable_only=True):
-  print proj[1]
+  print proj['name']
 print 
